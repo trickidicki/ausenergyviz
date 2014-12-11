@@ -1,0 +1,9 @@
+City,Station ID,URL,State,Timezone
+Melbourne,086071,IDV60901/IDV60901.94868.axf,VIC,Australia/Melbourne
+Sydney,066062,IDN60901/IDN60901.94768.axf,NSW,Australia/Sydney
+Brisbane,040913,IDQ60901/IDQ60901.94576.axf,QLD,Australia/Brisbane
+Adelaide,023090,IDS60901/IDS60901.94675.axf,SA,Australia/Adelaide
+Canberra,070351,IDN60903/IDN60903.94926.axf,ACT,Australia/Canberra
+Hobart,094029,IDT60901/IDT60901.94970.axf,TAS,Australia/Hobart
+Perth,009225,IDW60901/IDW60901.94608.axf,WA,Australia/Perth
+Darwin,014015,IDD60901/IDD60901.94120.axf,NT,Australia/Darwin

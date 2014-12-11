@@ -1,0 +1,11 @@
+Package: ausenergyviz
+Title: Data and Plotting for Australian Energy Market
+Version: 0.1
+Date: 2014-07-17
+Author: Cameron Patrick <cameron@largestprime.net>
+Maintainer: Cameron Patrick <cameron@largestprime.net>
+Depends: ncdf4, data.table
+Description: Tools to plot electricity generation and demand data from AEMO,
+  intended to be used together with Python scripts to download and import the
+  original data.
+License: GPL-2

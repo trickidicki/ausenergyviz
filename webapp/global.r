@@ -1,0 +1,1 @@
+AEMO_DATA_DIR = "../../aemo_data"
