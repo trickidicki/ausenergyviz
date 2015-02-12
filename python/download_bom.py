@@ -42,7 +42,7 @@ def fetch_url(url):
         except (urllib2.URLError, socket.error) as e:
             retry = retry + 1
             if retry > RETRY_LIMIT:
-                sys.stderr.write("***FAILED*** reason: %s\n" % str(e.reason))
+                sys.stderr.write("***FAILED*** url: %s reason: %s\n" % (url, str(e.reason)))
                 sys.exit(1)
     return content
 
@@ -108,7 +108,7 @@ def merge_timeseries(series1, series2):
             output.append(series2[j])
             i += 1
             j += 1
-        elif i < len(series1) and series1[i][0] < series2[j][0]:
+        elif i < len(series1) and (j >= len(series2) or series1[i][0] < series2[j][0]):
             output.append(series1[i])
             i += 1
         else:
