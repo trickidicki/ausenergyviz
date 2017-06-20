@@ -56,6 +56,7 @@ downloaded by the Python scripts.
 
     > library(devtools)
     > install("ausenergyviz", args="--no-multiarch")
+    > install_github("rCharts", "ramnathv")
 
 Shiny Web App
 -------------
