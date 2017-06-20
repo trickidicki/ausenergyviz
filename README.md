@@ -56,6 +56,8 @@ downloaded by the Python scripts.
 
     > library(devtools)
     > install("ausenergyviz", args="--no-multiarch")
+    > install.packages("reshape2")
+    > install.packages("latticeExtra")
     > install_github("rCharts", "ramnathv")
 
 Shiny Web App
