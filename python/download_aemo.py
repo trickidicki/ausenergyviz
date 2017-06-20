@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program; if not, see <http://www.gnu.org/licenses/>.
 
-import urllib2
+import urllib3
 import re
 import os
 import sys
@@ -50,10 +50,11 @@ def fetch_url(url):
     retry = 0
     while True:
         try:
-            response = urllib2.urlopen(url)
+            http = urllib3.PoolManager()
+            response = http.urlopen('GET', url)
             content = response.read()
             break
-        except (urllib2.URLError, socket.error) as e:
+        except (urllib3.exceptions, socket.error) as e:
             retry = retry + 1
             if retry > RETRY_LIMIT:
                 sys.stderr.write("***FAILED*** reason: %s\n" % str(e.reason))

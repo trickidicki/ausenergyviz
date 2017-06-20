@@ -18,7 +18,7 @@
 # this program; if not, see <http://www.gnu.org/licenses/>.
 
 from cStringIO import StringIO
-import urllib2
+import urllib3
 import re
 import os
 import sys
@@ -28,7 +28,7 @@ import socket
 import shutil
 
 # base URL for BoM observation data
-URL_BASE = 'http://www.bom.gov.au/fwo/'
+URL_BASE = 'http://reg.bom.gov.au/fwo/'
 RETRY_LIMIT = 5
 
 def fetch_url(url):
@@ -36,10 +36,12 @@ def fetch_url(url):
     retry = 0
     while True:
         try:
-            response = urllib2.urlopen(url)
-            content = response.read()
+            retries = urllib3.Retry(raise_on_status = True)
+            http = urllib3.PoolManager(retries=retries)
+            response = http.urlopen('GET', url)
+            content = response.data
             break
-        except (urllib2.URLError, socket.error) as e:
+        except (urllib3.exceptions, socket.error) as e:
             retry = retry + 1
             if retry > RETRY_LIMIT:
                 sys.stderr.write("***FAILED*** url: %s reason: %s\n" % (url, str(e.reason)))
@@ -119,7 +121,7 @@ def merge_timeseries(series1, series2):
 def parse_bom_csv(file_obj):
     """Parse the CSV-ish format on the BoM web site."""
     FIELD_TIMESTAMP = 5
-    FIELD_AIR_TEMP = 7
+    FIELD_AIR_TEMP = 9
     FIELD_HUMIDITY = 25
 
     timeseries = []
@@ -136,7 +138,7 @@ def parse_bom_csv(file_obj):
         if len(fields) < 2: continue
         if not seen_header:
             if fields[FIELD_TIMESTAMP] != "local_date_time_full[80]" or \
-               fields[FIELD_AIR_TEMP] != "air_temp" or \
+               fields[FIELD_AIR_TEMP] != "apparent_t" or \
                fields[FIELD_HUMIDITY] != "rel_hum":
                 print "ERROR: BoM data format has changed. doomed!"
                 print line
