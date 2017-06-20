@@ -52,7 +52,7 @@ def fetch_url(url):
         try:
             http = urllib3.PoolManager()
             response = http.urlopen('GET', url)
-            content = response.read()
+            content = response.data
             break
         except (urllib3.exceptions, socket.error) as e:
             retry = retry + 1
